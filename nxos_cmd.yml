@@ -1,0 +1,40 @@
+---
+- name: Run a user entered command
+  hosts: nxos
+  gather_facts: no
+  connection: local
+  vars:
+    creds:
+        host: nxswitches
+        transport: cli
+  vars_prompt:
+    - name: "command"
+      prompt: "Please type a command: "
+      private: no
+
+  tasks:
+    - name: running user entered command
+      nxos_command:
+        commands: 
+          #- show version
+          - "{{ command }}"     
+      register: version
+   
+    
+    - name: gather facts 
+      nxos_facts:
+        gather_subset:
+          - config
+      register: configfacts
+    - debug: 
+        var: configfacts
+        var: version.stdout_lines
+        
+#    - debug:
+#        var: vars
+#      with_items:
+#        - vars
+#        - environment
+#        - group_names
+#        - groups
+#        - hostvars
