@@ -1,4 +1,4 @@
 # My-Ansible-Playbooks
 
 
-ansible-playbook test.yml -u jmarter -k
+ansible-playbook NXOS_cmd.yml -u jmarter -k
