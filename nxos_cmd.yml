@@ -1,3 +1,4 @@
+
 ---
 - name: Run a user entered command
   hosts: nxos
@@ -18,17 +19,21 @@
         commands: 
           #- show version
           - "{{ command }}"     
-      register: version
+      register: cmd
    
     
     - name: gather facts 
       nxos_facts:
         gather_subset:
           - config
+          
       register: configfacts
     - debug: 
-        var: configfacts
-        var: version.stdout_lines
+        
+        #var: cmd.stdout_lines
+        msg: "TESTING: {{ cmd.stdout }}"
+        
+        
         
 #    - debug:
 #        var: vars
